@@ -1,0 +1,228 @@
+@use "@/scss/mixins";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 231 100% 99%; // Changed from 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 225 57% 21%; // Changed from 222.2 47.4% 11.2%;
+    --primary-dark: 225 57% 18%; // Added
+    --primary-darken: 225 57% 13%; // Added
+    --primary-light: 225 80% 60%; // Added
+    --primary-lighten: 225 85% 65%; // Added
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-100: 225 27% 63%; // Added
+    --secondary-200: 224 36% 43%; // Added
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 333 86% 55%; // Changed from 210 40% 96.1%;
+
+    --accent-hover: hsl(from hsl(var(--accent)) h s calc(l * 0.8));
+
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+    --radius: 0.5rem;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    &:focus-visible {
+      outline: 2px solid theme("colors.accent.DEFAULT");
+      outline-offset: 2px;
+      transition-duration: 0ms !important;
+    }
+    &[data-decoration="true"] {
+      pointer-events: none;
+      user-select: none;
+    }
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  a[data-external="true"] {
+    &::after {
+      content: " \2197";
+    }
+    &:visited::before {
+      content: "🔗 ";
+    }
+  }
+}
+
+@property --deg {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes deg-anim {
+  from {
+    --deg: 0deg;
+  }
+  to {
+    --deg: 360deg;
+  }
+}
+
+.animate-border {
+
+  position: relative;
+  
+  &::before,
+  &::after {
+    border-radius: inherit;
+    content: "";
+    position: absolute;
+    inset: -2px;
+    --color1: hsl(var(--primary-light));
+    --color2: transparent;
+    --color3: hsl(var(--primary-light));
+    --color4: transparent;
+    --color5: transparent;
+    --color6: transparent;
+    --color7: hsl(var(--primary-light));
+    --color8: transparent;
+    background-image: conic-gradient(
+      from var(--deg),
+      var(--color1),
+      var(--color2),
+      var(--color3),
+      var(--color4),
+      var(--color5),
+      var(--color6),
+      var(--color7),
+      var(--color8),
+      var(--color7),
+      var(--color6),
+      var(--color5),
+      var(--color4),
+      var(--color3),
+      var(--color2),
+      var(--color1)
+    );
+    z-index: -1;
+    animation: deg-anim var(--dur, 6s) linear infinite;
+  }
+  &::after {
+    filter: blur(0.25rem);
+  }
+}
+@layer components {
+
+  .polygon-down {
+    --clip-position: 75%;
+    @include mixins.lg- {
+      --clip-position: 85%;
+    }
+    @include mixins.md2- {
+      --clip-position: 90%;
+    }
+    @include mixins.sm2- {
+      --clip-position: 95%;
+    }
+
+    $bs: 1rem; // border size
+
+    $A: 0% 0%;
+    $B: 100% 0%;
+    $C: 100% var(--clip-position);
+    $D: 0% 100%;
+    clip-path: polygon($A, $B, $C, $D);
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-color: theme("colors.accent.DEFAULT");
+
+      $A: 0% calc(100% - #{$bs});
+      $B: 0% 100%;
+      $C: 100% var(--clip-position);
+      $D: 100% calc(var(--clip-position) - #{$bs});
+      clip-path: polygon($A, $B, $C, $D);
+    }
+  }
+  .polygon-up {
+    --clip-position: 25%;
+    @include mixins.xl- {
+      --clip-position: 15%;
+    }
+    @include mixins.md3- {
+      --clip-position: 10%;
+    }
+    @include mixins.sm- {
+      --clip-position: 5%;
+    }
+
+    $bs: 1rem; // border size
+
+    $A: 0% var(--clip-position);
+    $B: 100% 0%;
+    $C: 100% 100%;
+    $D: 0% 100%;
+    clip-path: polygon($A, $B, $C, $D);
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-color: theme("colors.accent.DEFAULT");
+
+      $A: 0% calc(var(--clip-position) - #{$bs});
+      $B: 100% 0%;
+      $C: 100% $bs;
+      $D: 0% calc(var(--clip-position) + #{$bs});
+      clip-path: polygon($A, $B, $C, $D);
+    }
+  }
+}

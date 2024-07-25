@@ -1,0 +1,34 @@
+@mixin xl- {
+  @media (width < theme("screens.xl")) {
+    @content;
+  }
+}
+
+@mixin lg- {
+  @media (width < theme("screens.lg")) {
+    @content;
+  }
+}
+
+@mixin md3- {
+  @media (width < theme("screens.md3")) {
+    @content;
+  }
+}
+
+@mixin md2- {
+  @media (width < theme("screens.md2")) {
+    @content;
+  }
+}
+
+@mixin sm- {
+  @media (width < theme("screens.sm")) {
+    @content;
+  }
+}
+@mixin sm2- {
+  @media (width < theme("screens.sm2")) {
+    @content;
+  }
+}

@@ -1,0 +1,1 @@
+export { default as showSinglePageToast } from "./singlePageToast";

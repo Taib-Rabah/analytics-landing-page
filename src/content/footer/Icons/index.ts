@@ -1,0 +1,11 @@
+export { default as Dribble } from "./Dribble";
+export { default as Facebook } from "./Facebook";
+export { default as Figma } from "./Figma";
+export { default as Github } from "./Github";
+export { default as Instagram } from "./Instagram";
+export { default as NextJS } from "./NextJS";
+export { default as SASS } from "./SASS";
+export { default as ShadcnUI } from "./ShadcnUI";
+export { default as TailwindCSS } from "./TailwindCSS";
+export { default as Telegram } from "./Telegram";
+export { default as Twitter } from "./Twitter";
